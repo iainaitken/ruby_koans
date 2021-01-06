@@ -33,6 +33,8 @@ class AboutNil < Neo::Koan
     # or
     #    obj == nil
     # Why?
+    # Ruby is an object-oriented language. While either approach will work,
+    # the former is in the Ruby style, using objects and methods.
   end
 
 end
