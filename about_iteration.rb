@@ -123,6 +123,12 @@ class AboutIteration < Neo::Koan
   #   # code to read 'file'
   #
   # When you get to the "AboutSandwichCode" koan, recheck your answer.
-  # This could be to do with Ruby being an object-based language.
+  # Sandwich code is where a function is "sandwiched" between two lines of code.
+  # For instance, the code to first open a file and the code to close the file
+  # once the function has been executed. Forgetting to add the second "slice of
+  # bread" can cause problems - you mgiht for example run out of memory if you
+  # do not close files that you have opened. In C, when you allocate memory using
+  # malloc, you need to free that memory once you've finished with it, else you
+  # will suffer a memory leak. The relevance here is that "File.open(filename) do |file|" automatically closes the file once the following code has been executed, avoiding any 
 
 end
