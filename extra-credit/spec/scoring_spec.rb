@@ -5,15 +5,18 @@ RSpec.describe Scoring do
     subject { described_class }
 
     it 'calculates a zero score' do
-      expect(subject.calculate([4])).to eq(0)
+      roll = 4
+      expect(subject.calculate([roll])).to eq(Scoring::SCORE_TABLE[roll])
     end
 
     it 'calculates the score for a roll of 1' do
-      expect(subject.calculate([1])).to eq(100)
+      roll = 1
+      expect(subject.calculate([roll])).to eq(Scoring::SCORE_TABLE[roll])
     end
 
     it 'calculates the score for a roll of 5' do
-      expect(subject.calculate([5])).to eq(50)
+      roll = 5
+      expect(subject.calculate([roll])).to eq(Scoring::SCORE_TABLE[roll])
     end
 
     it 'calculates scores for a roll of more than one die' do
@@ -22,16 +25,35 @@ RSpec.describe Scoring do
     end
 
     it 'calculates a triple score' do
-      expect(subject.calculate([1, 1, 1])).to eq(1000)
-      expect(subject.calculate([2, 2, 2])).to eq(200)
-      expect(subject.calculate([3, 3, 3])).to eq(300)
-      expect(subject.calculate([4, 4, 4])).to eq(400)
-      expect(subject.calculate([5, 5, 5])).to eq(500)
-      expect(subject.calculate([6, 6, 6])).to eq(600)
+      roll = [1, 1, 1]
+      expect(subject.calculate(roll)).to eq(Scoring::SCORE_TABLE[roll])
+
+      roll = [2, 2, 2]
+      expect(subject.calculate(roll)).to eq(Scoring::SCORE_TABLE[roll])
+ 
+      roll = [3, 3, 3]
+      expect(subject.calculate(roll)).to eq(Scoring::SCORE_TABLE[roll])
+
+      roll = [4, 4, 4]
+      expect(subject.calculate(roll)).to eq(Scoring::SCORE_TABLE[roll])
+
+      roll = [5, 5, 5]
+      expect(subject.calculate(roll)).to eq(Scoring::SCORE_TABLE[roll])
+
+      roll = [6, 6, 6]
+      expect(subject.calculate(roll)).to eq(Scoring::SCORE_TABLE[roll])
     end
 
     it 'calculates a triple score where there is a roll of more than 3 numbers' do
       expect(subject.calculate([1, 1, 1, 1])).to eq(1000)
+    end
+
+    it 'calculates a triple score where there is a triple roll and a non-scoring number' do
+      expect(subject.calculate([1, 1, 1, 4])).to eq(1000)
+    end
+
+    it 'calculates the score where there is a triple roll and a scoring number' do
+      expect(subject.calculate([2, 2, 2, 5])).to eq(250)
     end
   end
 end
