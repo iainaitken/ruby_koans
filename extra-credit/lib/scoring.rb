@@ -24,6 +24,11 @@ class Scoring
     return @@score
   end
 
+  def self.triple?(dice)
+    score_hash = dice.each_with_object(Hash.new(0)) { |number, hash| hash[number] += 1 }
+    return true if score_hash.select { |key, value| value >= 3 }
+  end
+
   private
 
   def self.remove_and_score_triple(dice)

@@ -15,6 +15,8 @@ class Game
     score = @scoring_class.calculate(rolls)
     if score = 0
       "Turn over"
+    else
+      calculate_remaining_dice(rolls)
     end
   end
 
@@ -36,6 +38,12 @@ class Game
       scores[player.name.to_sym] = player.score
     end
     return scores
+  end
+
+  private
+
+  def calculate_remaining_dice(rolls)
+
   end
 end
 
