@@ -11,6 +11,7 @@ RSpec.describe DiceSet do
     it 'can return values for more than one dice' do
       expect(subject.roll(2)).to be_a(Array)
       expect(subject.roll(2).sum).to be_between(2, 12)
+      expect(subject.roll(5).length).to eq(5)
     end
   end
 end
