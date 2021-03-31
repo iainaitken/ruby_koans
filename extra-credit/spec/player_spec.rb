@@ -10,4 +10,11 @@ RSpec.describe Player do
   it 'stores the player score' do
     expect(subject.score).to eq(0)
   end
+
+  describe '#add_score' do
+    it 'adds a score from a round to the player score' do
+      subject.add_score(300)
+      expect(subject.score).to eq(300)
+    end
+  end
 end

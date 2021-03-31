@@ -5,4 +5,8 @@ class Player
     @name = name
     @score = 0
   end
+
+  def add_score(round_score)
+    @score += round_score
+  end
 end
