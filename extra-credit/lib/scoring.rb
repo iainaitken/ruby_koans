@@ -1,5 +1,9 @@
 class Scoring
   def self.calculate(dice)
-    0
+    if dice[0] == 1
+      100
+    else
+      0
+    end
   end
 end
