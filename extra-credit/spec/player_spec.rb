@@ -16,5 +16,13 @@ RSpec.describe Player do
       subject.add_score(300)
       expect(subject.score).to eq(300)
     end
+
+    it 'totals up the score from several rounds' do
+      subject.add_score(300)
+      subject.add_score(150)
+      subject.add_score(1000)
+
+      expect(subject.score).to eq(1450)
+    end
   end
 end
