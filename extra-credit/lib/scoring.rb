@@ -1,7 +1,13 @@
 class Scoring
-  # refactor - have score table
+  SCORE_TABLE = {
+    1 => 100,
+    2 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 50,
+    6 => 0
+  }
   @@score = 0
-  
   
   def self.calculate(dice)
     @@score = 0
@@ -9,8 +15,7 @@ class Scoring
       score_triple(dice)
     else
       dice.each do |number|
-        @@score += 100 if number == 1
-        @@score += 50 if number == 5
+        @@score += SCORE_TABLE[number]
       end
     end
     return @@score
