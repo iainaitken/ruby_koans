@@ -1,5 +1,7 @@
 class Scoring
+  # refactor - have score table
   @@score = 0
+  
   
   def self.calculate(dice)
     @@score = 0
@@ -24,5 +26,9 @@ class Scoring
   def self.score_triple(dice)
     @@score += 1000 if dice == [1, 1, 1]
     @@score += 200 if dice == [2, 2, 2]
+    @@score += 300 if dice == [3, 3, 3]
+    @@score += 400 if dice == [4, 4, 4]
+    @@score += 500 if dice == [5, 5, 5]
+    @@score += 600 if dice == [6, 6, 6]
   end
 end
