@@ -11,4 +11,12 @@ class Game
   def list_players
     @players.map { |player| player.name }
   end
+
+  def scorecard
+    scores = {}
+    @players.each do |player|
+      scores[player.name.to_sym] = player.score
+    end
+    return scores
+  end
 end
