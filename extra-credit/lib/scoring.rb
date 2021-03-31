@@ -17,30 +17,27 @@ class Scoring
   
   def self.calculate(dice)
     @@score = 0
-    triple = check_triple(dice)
-    if triple != 0
-      score_triple(triple)
-    else
-      dice.each do |number|
-        @@score += SCORE_TABLE[number]
-      end
+    remaining_rolls = remove_triple(dice)
+    remaining_rolls.each do |number|
+      @@score += SCORE_TABLE[number]
     end
     return @@score
   end
 
   private
 
-  def self.check_triple(dice)
+  def self.remove_triple(dice)
     score_hash = dice.each_with_object(Hash.new(0)) { |number, hash| hash[number] += 1 }
-    triple = score_hash.select { |key, value| value >= 3 }
-    if triple != {}
-      return Array.new(3) { triple.keys.pop }
-    else
-      return 0
+    triple_number = score_hash.select { |key, value| value >= 3 }.keys.pop
+    if triple_number != nil
+      score_triple(triple_number)
+      3.times { dice.delete_at(dice.index(triple_number)) }
     end
+    return dice
   end
 
   def self.score_triple(triple)
-    @@score += SCORE_TABLE[triple]
+    triple_rolls = Array.new(3) { triple }
+    @@score += SCORE_TABLE[triple_rolls]
   end
 end
