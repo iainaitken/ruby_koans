@@ -1,13 +1,18 @@
 class Game
-  def initialize(player_class = Player, dice_set_class = DiceSet)
+  def initialize(
+    player_class = Player,
+    dice_set_class = DiceSet,
+    scoring_class = Scoring
+  )
     @players = []
     @player_class = player_class
     @dice_set_class = dice_set_class
+    @scoring_class = scoring_class
   end
 
   def turn_loop(player:)
     rolls = @dice_set_class.roll(5)
-    score = Scoring.calculate(rolls)
+    score = @scoring_class.calculate(rolls)
     if score = 0
       "Turn over"
     end
