@@ -5,7 +5,13 @@ class Scoring
     3 => 0,
     4 => 0,
     5 => 50,
-    6 => 0
+    6 => 0,
+    [1, 1, 1] => 1000,
+    [2, 2, 2] => 200,
+    [3, 3, 3] => 300,
+    [4, 4, 4] => 400,
+    [5, 5, 5] => 500,
+    [6, 6, 6] => 600,
   }
   @@score = 0
   
@@ -29,11 +35,6 @@ class Scoring
   end
 
   def self.score_triple(dice)
-    @@score += 1000 if dice == [1, 1, 1]
-    @@score += 200 if dice == [2, 2, 2]
-    @@score += 300 if dice == [3, 3, 3]
-    @@score += 400 if dice == [4, 4, 4]
-    @@score += 500 if dice == [5, 5, 5]
-    @@score += 600 if dice == [6, 6, 6]
+    @@score += SCORE_TABLE[dice]
   end
 end
