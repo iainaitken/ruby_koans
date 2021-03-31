@@ -5,6 +5,14 @@ class Game
     @dice_set_class = dice_set_class
   end
 
+  def turn_loop(player:)
+    rolls = @dice_set_class.roll(5)
+    score = Scoring.calculate(rolls)
+    if score = 0
+      "Turn over"
+    end
+  end
+
   def add_player(name:)
     @players.push(@player_class.new(name: name))
   end
@@ -29,8 +37,8 @@ end
 =begin
 Play Loop  
 
-Player 1 rolls
-Calculate score
+Player 1 rolls - game.roll
+Calculate score - scoring.calculate
 End turn if zero points
 Work out how many dice available in the next throw. NOTE: if all dice are scoring 
 after the player has thrown all dice (i.e. first throw gives 1-1-1, second gives a  

@@ -36,12 +36,24 @@ RSpec.describe Game do
   end
 
   describe '#roll' do
-    
     it 'rolls the dice' do
       dice = class_double(DiceSet, roll: [1, 2, 3, 4, 5]).as_stubbed_const
 
       expect(dice).to receive(:roll)
       expect(subject.roll(no_of_dice: 5)).to eq([1, 2, 3, 4, 5])
     end
+  end
+
+  describe 'turn_loop' do
+    it 'ends the turn if player scores a zero' do
+      dice = class_double(DiceSet, roll: [2, 2, 3, 4, 6]).as_stubbed_const
+      scoring = class_double(Scoring, calculate: 0).as_stubbed_const
+
+      expect(dice).to receive(:roll)
+      expect(scoring).to receive(:calculate)
+      expect(subject.turn_loop(player: player1)).to eq("Turn over")
+    end
+
+
   end
 end
