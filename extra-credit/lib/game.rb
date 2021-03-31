@@ -1,10 +1,11 @@
 class Game
-  def initialize
+  def initialize(player_class = Player)
     @players = []
+    @player_class = player_class
   end
 
   def add_player(name:)
-    @players.push(Player.new(name: name))
+    @players.push(@player_class.new(name: name))
   end
 
   def list_players
