@@ -2,7 +2,7 @@ require 'game'
 
 RSpec.describe Game do
   subject { described_class.new }
-  
+
   let(:player1) { instance_double(Player, name: "Brian", score: 400) }
   let(:player2) { instance_double(Player, name: "Kevin", score: 250) }
 
@@ -32,6 +32,16 @@ RSpec.describe Game do
       subject.add_player(name: "Kevin")
 
       expect(subject.scorecard).to eq({Brian: 400, Kevin: 250})
+    end
+  end
+
+  describe '#roll' do
+    
+    it 'rolls the dice' do
+      dice = class_double(DiceSet, roll: [1, 2, 3, 4, 5]).as_stubbed_const
+
+      expect(dice).to receive(:roll)
+      expect(subject.roll(no_of_dice: 5)).to eq([1, 2, 3, 4, 5])
     end
   end
 end
