@@ -76,6 +76,9 @@ RSpec.describe Scoring do
       expect(subject.calculate([1, 1, 1, 1, 1])).to eq(1200)
       expect(subject.calculate([5, 5, 5, 5, 1])).to eq(650)
       expect(subject.calculate([6, 6, 6, 2, 1])).to eq(700)
+      expect(subject.calculate([5, 1, 3, 4, 1])).to eq(250)
+      expect(subject.calculate([1, 1, 1, 3, 1])).to eq(1100)
+      expect(subject.calculate([2, 4, 4, 5, 4])).to eq(450)
     end
   end
 end
