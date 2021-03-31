@@ -71,5 +71,11 @@ RSpec.describe Scoring do
     it 'calculates the score where there is a triple roll and a scoring number' do
       expect(subject.calculate([2, 2, 2, 5])).to eq(250)
     end
+
+    it 'calculates the score with a full roll of 5 dice' do
+      expect(subject.calculate([1, 1, 1, 1, 1])).to eq(1200)
+      expect(subject.calculate([5, 5, 5, 5, 1])).to eq(650)
+      expect(subject.calculate([6, 6, 6, 2, 1])).to eq(700)
+    end
   end
 end
