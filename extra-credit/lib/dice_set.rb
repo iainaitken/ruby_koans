@@ -1,5 +1,5 @@
 class DiceSet
-  def self.roll
-    rand(1..6)
+  def self.roll(dice)
+    Array.new(dice) { rand(1..6) }
   end
 end
