@@ -29,5 +29,9 @@ RSpec.describe Scoring do
       expect(subject.calculate([5, 5, 5])).to eq(500)
       expect(subject.calculate([6, 6, 6])).to eq(600)
     end
+
+    it 'calculates a triple score where there is a roll of more than 3 numbers' do
+      expect(subject.calculate([1, 1, 1, 1])).to eq(1000)
+    end
   end
 end
