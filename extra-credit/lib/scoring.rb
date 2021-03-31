@@ -1,11 +1,7 @@
 class Scoring
   def self.calculate(dice)
-    if dice[0] == 1
-      100
-    elsif dice[0] == 5
-      50
-    else
-      0
-    end
+    return 100 if dice[0] == 1
+    return 50 if dice[0] == 5
+    return 0
   end
 end
