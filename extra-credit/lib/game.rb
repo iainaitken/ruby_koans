@@ -1,7 +1,8 @@
 class Game
-  def initialize(player_class = Player)
+  def initialize(player_class = Player, dice_set_class = DiceSet)
     @players = []
     @player_class = player_class
+    @dice_set_class = dice_set_class
   end
 
   def add_player(name:)
@@ -13,7 +14,7 @@ class Game
   end
 
   def roll(no_of_dice:)
-    DiceSet.roll(no_of_dice)
+    @dice_set_class.roll(no_of_dice)
   end
 
   def scorecard
