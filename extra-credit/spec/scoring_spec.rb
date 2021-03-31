@@ -23,7 +23,7 @@ RSpec.describe Scoring do
 
     it 'calculates a triple score' do
       expect(subject.calculate([1, 1, 1])).to eq(1000)
-      # expect(subject.calculate([2, 2, 2])).to eq(200)
+      expect(subject.calculate([2, 2, 2])).to eq(200)
       # expect(subject.calculate([3, 3, 3])).to eq(300)
       # expect(subject.calculate([4, 4, 4])).to eq(400)
       # expect(subject.calculate([5, 5, 5])).to eq(500)
