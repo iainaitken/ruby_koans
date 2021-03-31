@@ -6,4 +6,8 @@ RSpec.describe Player do
   it 'stores the player name' do
     expect(subject.name).to eq("Brian")
   end
+
+  it 'stores the player score' do
+    expect(subject.score).to eq(0)
+  end
 end
