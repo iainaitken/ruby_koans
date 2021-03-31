@@ -1,7 +1,7 @@
 require 'dice_set'
 
 RSpec.describe DiceSet do
-  describe '#roll' do
+  describe '.roll' do
     subject { described_class }
 
     it 'returns a random number between 1 and 6 for a single die' do
