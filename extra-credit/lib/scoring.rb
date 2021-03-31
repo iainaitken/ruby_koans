@@ -17,7 +17,7 @@ class Scoring
   
   def self.calculate(dice)
     @@score = 0
-    remaining_rolls = remove_triple(dice)
+    remaining_rolls = remove_and_score_triple(dice)
     remaining_rolls.each do |number|
       @@score += SCORE_TABLE[number]
     end
@@ -26,7 +26,7 @@ class Scoring
 
   private
 
-  def self.remove_triple(dice)
+  def self.remove_and_score_triple(dice)
     score_hash = dice.each_with_object(Hash.new(0)) { |number, hash| hash[number] += 1 }
     triple_number = score_hash.select { |key, value| value >= 3 }.keys.pop
     if triple_number != nil
