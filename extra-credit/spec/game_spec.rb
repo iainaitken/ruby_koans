@@ -48,20 +48,20 @@ RSpec.describe Game do
   describe 'turn_loop' do
     it 'ends the turn if player scores a zero' do
       dice = class_double(DiceSet, roll: [2, 2, 3, 4, 6]).as_stubbed_const
-      scoring = class_double(Scoring, calculate: 0).as_stubbed_const
+      scoring = class_double(Scoring, calculate: [0, [2, 2, 3, 4, 6]]).as_stubbed_const
 
       expect(dice).to receive(:roll)
       expect(scoring).to receive(:calculate)
       expect(subject.turn_loop(player: player1)).to eq("Turn over")
     end
 
-    it 'works out how many dice are available to throw next turn' do
+    it 'calculates if a player has another turn' do
       dice = class_double(DiceSet, roll: [2, 2, 2, 4, 6]).as_stubbed_const
-      scoring = class_double(Scoring, calculate: 200).as_stubbed_const
+      scoring = class_double(Scoring, calculate: [200, [4, 6]]).as_stubbed_const
 
       expect(dice).to receive(:roll)
       expect(scoring).to receive(:calculate)
-      expect(subject.turn_loop(player: player1)).to eq 2
+      expect(subject.turn_loop(player: player1)).to eq "Throw again"
     end
   end
 end

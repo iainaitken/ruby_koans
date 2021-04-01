@@ -24,7 +24,7 @@ class Scoring
     dice.each do |number|
       @@score += SCORE_TABLE[number]
     end
-    return @@score
+    return @@score, dice
   end
   
   private

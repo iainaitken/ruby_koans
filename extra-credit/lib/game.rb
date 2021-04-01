@@ -12,11 +12,13 @@ class Game
 
   def turn_loop(player:)
     rolls = @dice_set_class.roll(5)
-    score = @scoring_class.calculate(rolls)
-    if score = 0
+    returned_array = @scoring_class.calculate(rolls)
+    p score = returned_array.first
+    p remaining_dice = returned_array.last
+    if score == 0
       "Turn over"
     else
-      calculate_remaining_dice(rolls)
+      "Throw again"
     end
   end
 
