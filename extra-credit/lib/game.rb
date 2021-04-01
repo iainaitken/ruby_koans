@@ -11,14 +11,29 @@ class Game
   end
 
   def turn_loop(player:)
-    rolls = @dice_set_class.roll(5)
-    returned_array = @scoring_class.calculate(rolls)
-    p score = returned_array.first
-    p remaining_dice = returned_array.last
-    if score == 0
-      "Turn over"
-    else
-      "Throw again"
+    dice = 5
+    count = 0
+    turn_score = 0
+    loop do
+      rolls = @dice_set_class.roll(dice)
+      p "rolls is #{rolls}"
+      returned_array = @scoring_class.calculate(rolls)
+      p "returned_array is #{returned_array}"
+      score = returned_array.first
+      p "score is #{score}"
+      if score == 0
+        player.add_score(score)
+        return
+      else
+        turn_score += score
+      end
+      p "turn_score is #{turn_score}"
+      if returned_array.last.length == 0
+        dice = 5
+      else
+        dice = returned_array.last.length
+      end
+      p "dice is #{dice}"
     end
   end
 
@@ -28,10 +43,6 @@ class Game
 
   def list_players
     @players.map { |player| player.name }
-  end
-
-  def roll(no_of_dice:)
-    @dice_set_class.roll(no_of_dice)
   end
 
   def scorecard
@@ -44,8 +55,8 @@ class Game
 
   private
 
-  def calculate_remaining_dice(rolls)
-
+  def roll(no_of_dice:)
+    @dice_set_class.roll(no_of_dice)
   end
 end
 
@@ -61,10 +72,4 @@ after the player has thrown all dice (i.e. first throw gives 1-1-1, second gives
 Option to quit and take score (if already in the game or if score > 300)
 Check if score >= 3000
 If so, Final round - all other players take one more turn 
-=end
-
-=begin
-CAlc. remaining dice/scoring
-
-
 =end

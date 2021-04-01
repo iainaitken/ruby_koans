@@ -36,32 +36,53 @@ RSpec.describe Game do
     end
   end
 
-  describe '#roll' do
-    it 'rolls the dice' do
-      dice = class_double(DiceSet, roll: [1, 2, 3, 4, 5]).as_stubbed_const
+  # describe '#roll' do
+  #   it 'rolls the dice' do
+  #     dice = class_double(DiceSet, roll: [1, 2, 3, 4, 5]).as_stubbed_const
 
-      expect(dice).to receive(:roll)
-      expect(subject.roll(no_of_dice: 5)).to eq([1, 2, 3, 4, 5])
-    end
-  end
+  #     expect(dice).to receive(:roll)
+  #     expect(subject.roll(no_of_dice: 5)).to eq([1, 2, 3, 4, 5])
+  #   end
+  # end
 
   describe 'turn_loop' do
     it 'ends the turn if player scores a zero' do
       dice = class_double(DiceSet, roll: [2, 2, 3, 4, 6]).as_stubbed_const
       scoring = class_double(Scoring, calculate: [0, [2, 2, 3, 4, 6]]).as_stubbed_const
 
-      expect(dice).to receive(:roll)
-      expect(scoring).to receive(:calculate)
-      expect(subject.turn_loop(player: player1)).to eq("Turn over")
+      expect(dice).to receive(:roll).exactly(1).times
+      expect(scoring).to receive(:calculate).exactly(1).times
+      expect(player1).to receive(:add_score).exactly(1).times
+
+      subject.turn_loop(player: player1)
     end
 
     it 'calculates if a player has another turn' do
-      dice = class_double(DiceSet, roll: [2, 2, 2, 4, 6]).as_stubbed_const
-      scoring = class_double(Scoring, calculate: [200, [4, 6]]).as_stubbed_const
+      dice = class_double(DiceSet).as_stubbed_const
+      scoring = class_double(Scoring).as_stubbed_const
 
-      expect(dice).to receive(:roll)
-      expect(scoring).to receive(:calculate)
-      expect(subject.turn_loop(player: player1)).to eq "Throw again"
+      allow(dice).to receive(:roll).and_return([1, 1, 1, 4, 6], [1, 3], [4])
+      allow(scoring).to receive(:calculate).and_return([1000, [4, 6]], [100, [3]], [0, [4]])
+
+      expect(dice).to receive(:roll).exactly(3).times
+      expect(scoring).to receive(:calculate).exactly(3).times
+      expect(player1).to receive(:add_score).exactly(1).times
+
+      subject.turn_loop(player: player1)
+    end
+
+    it 'resets the rolls if all dice are scoring' do
+      dice = class_double(DiceSet).as_stubbed_const
+      scoring = class_double(Scoring).as_stubbed_const
+
+      allow(dice).to receive(:roll).and_return([1, 1, 1, 4, 6], [1, 3], [5], [2, 2, 2, 3, 6], [2, 4])
+      allow(scoring).to receive(:calculate).and_return([1000, [4, 6]], [100, [3]], [50, []], [200, [3, 6]], [0, [2, 4]])
+
+      expect(dice).to receive(:roll).exactly(5).times
+      expect(scoring).to receive(:calculate).exactly(5).times
+      expect(player1).to receive(:add_score).exactly(1).times
+
+      subject.turn_loop(player: player1)
     end
   end
 end
