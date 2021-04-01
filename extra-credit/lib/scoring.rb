@@ -36,14 +36,9 @@ class Scoring
   end
   
   def self.remove_and_score_triple(dice)
-    3.times { dice.delete_at(dice.index(@@triple_number)) }
-    score_triple
+    triple = Array.new(3) { dice.delete_at(dice.index(@@triple_number)) }
+    @@score += SCORE_TABLE[triple]
     return dice
-  end
-  
-  def self.score_triple
-    triple_rolls = Array.new(3) { @@triple_number }
-    @@score += SCORE_TABLE[triple_rolls]
   end
   
   def self.reset_state
