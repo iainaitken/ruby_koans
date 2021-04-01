@@ -43,7 +43,7 @@ class Game
       else
         dice = returned_array.last.length
       end
-      # p "dice is #{dice}"
+      # p "dice is #{
     end
   end
 
