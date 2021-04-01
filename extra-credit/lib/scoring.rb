@@ -14,35 +14,40 @@ class Scoring
     [6, 6, 6] => 600,
   }
   @@score = 0
+  @@triple_number = nil
   
   def self.calculate(dice)
-    @@score = 0
-    remaining_rolls = remove_and_score_triple(dice)
-    remaining_rolls.each do |number|
+    reset_state
+    if triple?(dice)
+      dice = remove_and_score_triple(dice)
+    end
+    dice.each do |number|
       @@score += SCORE_TABLE[number]
     end
     return @@score
   end
-
+  
+  private
+  
   def self.triple?(dice)
     score_hash = dice.each_with_object(Hash.new(0)) { |number, hash| hash[number] += 1 }
-    return true if score_hash.select { |key, value| value >= 3 }
+    @@triple_number = score_hash.select { |key, value| value >= 3 }.keys.pop
+    return true if @@triple_number != nil
   end
-
-  private
-
+  
   def self.remove_and_score_triple(dice)
-    score_hash = dice.each_with_object(Hash.new(0)) { |number, hash| hash[number] += 1 }
-    triple_number = score_hash.select { |key, value| value >= 3 }.keys.pop
-    if triple_number != nil
-      score_triple(triple_number)
-      3.times { dice.delete_at(dice.index(triple_number)) }
-    end
+    3.times { dice.delete_at(dice.index(@@triple_number)) }
+    score_triple
     return dice
   end
-
-  def self.score_triple(triple)
-    triple_rolls = Array.new(3) { triple }
+  
+  def self.score_triple
+    triple_rolls = Array.new(3) { @@triple_number }
     @@score += SCORE_TABLE[triple_rolls]
+  end
+  
+  def self.reset_state
+    @@score = 0
+    @@triple_number = nil
   end
 end

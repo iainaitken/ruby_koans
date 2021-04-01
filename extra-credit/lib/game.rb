@@ -60,3 +60,9 @@ Option to quit and take score (if already in the game or if score > 300)
 Check if score >= 3000
 If so, Final round - all other players take one more turn 
 =end
+
+=begin
+CAlc. remaining dice/scoring
+
+
+=end

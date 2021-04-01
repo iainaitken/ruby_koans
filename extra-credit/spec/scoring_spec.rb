@@ -81,11 +81,4 @@ RSpec.describe Scoring do
       expect(subject.calculate([2, 4, 4, 5, 4])).to eq(450)
     end
   end
-
-  describe '.triple?' do
-    it 'returns true when a triple is rolled' do
-      roll = [1, 1, 1, 4, 5]
-      expect(subject.triple?(roll)).to eq(true)
-    end
-  end
 end
