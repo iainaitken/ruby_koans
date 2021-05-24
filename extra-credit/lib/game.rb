@@ -10,42 +10,47 @@ class Game
     @scoring_class = scoring_class
   end
 
+  def game_loop
+    @players.each do |player|
+      turn_loop(player: player)
+      break if final_turn?(player)
+    end
+  end
+
   def turn_loop(player:)
     dice = 5
-    count = 0
     turn_score = 0
     loop do
       rolls = @dice_set_class.roll(dice)
-      # p "rolls is #{rolls}"
       returned_array = @scoring_class.calculate(rolls)
-      # p "returned_array is #{returned_array}"
       score = returned_array.first
-      # p "score is #{score}"
       if score == 0
-        player.add_score(score)
         return
       else
         turn_score += score
         loop do
-          puts "Would you like to take your points and end your turn?"
+          puts "Would you like to take your points and end your turn? y/n"
           selection = $stdin.gets.chomp
           if selection == "y"
             player.add_score(turn_score)
             return
-          else
+          elsif selection == "n"
             break
           end
         end
       end
-      # p "turn_score is #{turn_score}"
       if returned_array.last.length == 0
         dice = 5
       else
         dice = returned_array.last.length
       end
-      # p "dice is #{
     end
   end
+
+  # def exclude_player(player)
+  #   @players.delete(player)
+
+  # end
 
   def add_player(name:)
     @players.push(@player_class.new(name: name))
@@ -55,18 +60,14 @@ class Game
     @players.map { |player| player.name }
   end
 
-  def scorecard
-    scores = {}
-    @players.each do |player|
-      scores[player.name.to_sym] = player.score
-    end
-    return scores
-  end
-
   private
 
   def roll(no_of_dice:)
     @dice_set_class.roll(no_of_dice)
+  end
+
+  def final_turn?(player)
+    player.score >= 3000
   end
 end
 

@@ -5,7 +5,7 @@ RSpec.describe Game do
 
   let(:player1) { instance_double(Player, name: "Brian", score: 400) }
   let(:player2) { instance_double(Player, name: "Kevin", score: 250) }
-  let(:player3) { instance_double(Player, name: "Norma", score: 0) }
+  let(:player3) { instance_double(Player, name: "Norma", score: 3200) }
 
   before do
     allow(Player).to receive(:new).with(name: "Brian").and_return(player1)
@@ -27,15 +27,6 @@ RSpec.describe Game do
     end
   end
 
-  describe '#scorecard' do
-    it 'shows the current scores' do
-      subject.add_player(name: "Brian")
-      subject.add_player(name: "Kevin")
-
-      expect(subject.scorecard).to eq({Brian: 400, Kevin: 250})
-    end
-  end
-
   describe 'turn_loop' do
     
     before do
@@ -50,7 +41,7 @@ RSpec.describe Game do
 
       expect(@dice).to receive(:roll).exactly(1).times
       expect(@scoring).to receive(:calculate).exactly(1).times
-      expect(player1).to receive(:add_score).exactly(1).times
+      expect(player1).not_to receive(:add_score)
 
       subject.turn_loop(player: player1)
     end
@@ -62,7 +53,7 @@ RSpec.describe Game do
 
       expect(@dice).to receive(:roll).exactly(3).times
       expect(@scoring).to receive(:calculate).exactly(3).times
-      expect(player1).to receive(:add_score).exactly(1).times
+      expect(player1).not_to receive(:add_score)
 
       subject.turn_loop(player: player1)
     end
@@ -74,7 +65,7 @@ RSpec.describe Game do
 
       expect(@dice).to receive(:roll).exactly(5).times
       expect(@scoring).to receive(:calculate).exactly(5).times
-      expect(player1).to receive(:add_score).exactly(1).times
+      expect(player1).not_to receive(:add_score)
 
       subject.turn_loop(player: player1)
     end
@@ -89,6 +80,12 @@ RSpec.describe Game do
       expect(player1).to receive(:add_score).exactly(1).times
 
       subject.turn_loop(player: player1)
+    end
+  end
+
+  describe '#final_turn_loop' do
+    it 'allows only the other players in the game to have a final turn' do
+      
     end
   end
 end
